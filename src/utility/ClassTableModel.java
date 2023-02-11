@@ -6,6 +6,7 @@ import javax.swing.table.DefaultTableModel;
 import models.GiaDinhModel;
 import models.NhanKhauModel;
 import models.TieuSuModel;
+import models.CSVCModel;
 
 /**
  *
@@ -134,6 +135,30 @@ public class ClassTableModel {
             obj[2] = item.getChuHo().getHoTen();
             obj[3] = item.getHoKhauModel().getDiaChi();
             obj[4] = item.getHoKhauModel().getNgayLap();
+            dtm.addRow(obj);
+        });
+        return dtm;
+    }
+    
+    public DefaultTableModel setTableCSVC(List<CSVCModel> listItem, String[] listColumn){
+        final int columns = listColumn.length;
+        DefaultTableModel dtm = new DefaultTableModel()  {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return super.isCellEditable(row, column); //To change body of generated methods, choose Tools | Templates.
+            }
+            @Override
+            public Class<?> getColumnClass(int columnIndex) {
+                return columnIndex == 3 ? Boolean.class : String.class;
+            }
+        };
+        dtm.setColumnIdentifiers(listColumn);
+        Object[] obj;
+        obj = new Object[columns];
+        listItem.forEach((CSVCModel item) -> {
+            obj[0] = item.getLoai();
+            obj[1] = item.getSoLuong();
+            obj[2] = item.getTrangThai();
             dtm.addRow(obj);
         });
         return dtm;

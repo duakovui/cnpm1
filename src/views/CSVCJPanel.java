@@ -5,6 +5,8 @@
 package views;
 
 import javax.swing.JFrame;
+import controllers.CSVCController;
+import views.CSVCManagerFrame.AddNewCSVCJFrame;
 
 /**
  *
@@ -16,10 +18,14 @@ public class CSVCJPanel extends javax.swing.JPanel {
      * Creates new form CSVCJPanel
      */
     private JFrame parentJFrame;
+    private CSVCController controller = null;
+    
     public CSVCJPanel(JFrame parentJFrame) {
         this.parentJFrame = parentJFrame;
         initComponents();
-        
+        controller = new CSVCController(tablePanel, jtfSearch);
+        controller.setParentJFrame(parentJFrame);
+        controller.setDataTable();
     }
 
     /**
@@ -32,34 +38,55 @@ public class CSVCJPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         addNewBtn = new javax.swing.JButton();
-        addNewBtn1 = new javax.swing.JButton();
-        addNewBtn2 = new javax.swing.JButton();
+        CapNhatBtn = new javax.swing.JButton();
+        tablePanel = new javax.swing.JPanel();
+        jtfSearch = new javax.swing.JTextField();
 
         addNewBtn.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         addNewBtn.setText("Thêm mới");
-
-        addNewBtn1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        addNewBtn1.setText("Thêm mới");
-        addNewBtn1.addActionListener(new java.awt.event.ActionListener() {
+        addNewBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addNewBtn1ActionPerformed(evt);
+                addNewBtnActionPerformed(evt);
             }
         });
 
-        addNewBtn2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        addNewBtn2.setText("Thêm mới");
+        CapNhatBtn.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        CapNhatBtn.setText("Cập nhật");
+        CapNhatBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CapNhatBtnActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout tablePanelLayout = new javax.swing.GroupLayout(tablePanel);
+        tablePanel.setLayout(tablePanelLayout);
+        tablePanelLayout.setHorizontalGroup(
+            tablePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        tablePanelLayout.setVerticalGroup(
+            tablePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        jtfSearch.setText("jTextField1");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(723, Short.MAX_VALUE)
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(addNewBtn1, javax.swing.GroupLayout.DEFAULT_SIZE, 122, Short.MAX_VALUE)
-                        .addComponent(addNewBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(addNewBtn2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jtfSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 611, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(tablePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(CapNhatBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 122, Short.MAX_VALUE)
+                            .addComponent(addNewBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -68,21 +95,31 @@ public class CSVCJPanel extends javax.swing.JPanel {
                 .addGap(91, 91, 91)
                 .addComponent(addNewBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(addNewBtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(addNewBtn2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(242, Short.MAX_VALUE))
+                .addComponent(CapNhatBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(292, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addComponent(jtfSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(tablePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void addNewBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addNewBtn1ActionPerformed
+    private void CapNhatBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CapNhatBtnActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_addNewBtn1ActionPerformed
+    }//GEN-LAST:event_CapNhatBtnActionPerformed
+
+    private void addNewBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addNewBtnActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_addNewBtnActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton CapNhatBtn;
     private javax.swing.JButton addNewBtn;
-    private javax.swing.JButton addNewBtn1;
-    private javax.swing.JButton addNewBtn2;
+    private javax.swing.JTextField jtfSearch;
+    private javax.swing.JPanel tablePanel;
     // End of variables declaration//GEN-END:variables
 }

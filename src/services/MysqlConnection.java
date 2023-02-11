@@ -21,4 +21,12 @@ public class MysqlConnection {
         Connection conn = DriverManager.getConnection(connectionUrl, userName, password);
         return conn;
     }
+    
+    public static Connection getMysqlConnection1() throws SQLException, ClassNotFoundException {
+        String hostName = "localhost";
+        String dbName = "nha_van_hoa";
+        String userName = "root";
+        String password = "ahihidongoc";
+        return getMysqlConnection(hostName, dbName, userName, password);
+    }
 }
