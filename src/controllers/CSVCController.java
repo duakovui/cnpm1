@@ -24,6 +24,7 @@ import javax.swing.table.DefaultTableModel;
 import models.CSVCModel;
 import services.CSVCService;
 import utility.ClassTableModel;
+import views.CSVCManagerFrame.AddNewCSVCJFrame;
 
 /**
  *
@@ -50,6 +51,11 @@ public class CSVCController {
     public CSVCController(){
         
     }
+    
+    public CSVCController getCSVCController(){
+        return this;
+    }
+    
     
     public void initAction(){
         this.jtfSearch.getDocument().addDocumentListener(new DocumentListener() {
@@ -78,6 +84,8 @@ public class CSVCController {
     
     public void setDataTable() {
         DefaultTableModel model = classTableModel.setTableCSVC(listCSVC, COLUMNS);
+        listCSVC.forEach((CSVCModel item) -> {
+        });
         JTable table = new JTable(model) {
             @Override
             public boolean editCellAt(int row, int column, EventObject e) {
@@ -94,9 +102,23 @@ public class CSVCController {
         table.validate();
         table.repaint();
         table.setFont(new Font("Arial", Font.PLAIN, 14));
-        table.getColumnModel().getColumn(0).setMaxWidth(80);
+        table.getColumnModel().getColumn(0).setMaxWidth(320);
         table.getColumnModel().getColumn(0).setMinWidth(80);
-        table.getColumnModel().getColumn(0).setPreferredWidth(80);
+        table.getColumnModel().getColumn(0).setPreferredWidth(160);
+        table.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+//                JOptionPane.showConfirmDialog(null, table.getSelectedRow());
+                if (e.getClickCount() > 1) {
+                    CSVCModel temp = listCSVC.get(table.getSelectedRow());
+                    AddNewCSVCJFrame updateCSVC = new AddNewCSVCJFrame(getCSVCController() ,parentJFrame);
+                    updateCSVC.update(temp);
+                    updateCSVC.setLocationRelativeTo(null);
+                    updateCSVC.setResizable(false);
+                    updateCSVC.setVisible(true);
+                }
+            }
+        });
         JScrollPane scroll = new JScrollPane();
         scroll.getViewport().add(table);
         scroll.setPreferredSize(new Dimension(1350, 400));

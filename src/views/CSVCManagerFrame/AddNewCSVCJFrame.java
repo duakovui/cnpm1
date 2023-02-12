@@ -98,6 +98,7 @@ public class AddNewCSVCJFrame extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         TrangThaiTxb = new javax.swing.JTextField();
         createBtn = new javax.swing.JButton();
+        updateBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -105,18 +106,14 @@ public class AddNewCSVCJFrame extends javax.swing.JFrame {
 
         jLabel2.setText("Số lượng:");
 
-        LoaiTxb.setText("jTextField1");
         LoaiTxb.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 LoaiTxbActionPerformed(evt);
             }
         });
 
-        SoLuongTxb.setText("jTextField2");
-
         jLabel3.setText("Trạng thái:");
 
-        TrangThaiTxb.setText("jTextField3");
         TrangThaiTxb.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 TrangThaiTxbActionPerformed(evt);
@@ -127,6 +124,13 @@ public class AddNewCSVCJFrame extends javax.swing.JFrame {
         createBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 createBtnActionPerformed(evt);
+            }
+        });
+
+        updateBtn.setText("Update");
+        updateBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updateBtnActionPerformed(evt);
             }
         });
 
@@ -145,10 +149,12 @@ public class AddNewCSVCJFrame extends javax.swing.JFrame {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(SoLuongTxb, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)
                         .addComponent(LoaiTxb))
-                    .addComponent(TrangThaiTxb, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(117, Short.MAX_VALUE))
+                    .addComponent(TrangThaiTxb, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(40, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(updateBtn)
+                .addGap(26, 26, 26)
                 .addComponent(createBtn)
                 .addGap(24, 24, 24))
         );
@@ -163,16 +169,15 @@ public class AddNewCSVCJFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(SoLuongTxb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(24, 24, 24)
-                        .addComponent(jLabel3))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(TrangThaiTxb, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(20, 20, 20)
-                .addComponent(createBtn)
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(TrangThaiTxb))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 159, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(createBtn)
+                    .addComponent(updateBtn))
+                .addGap(21, 21, 21))
         );
 
         pack();
@@ -205,6 +210,26 @@ public class AddNewCSVCJFrame extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_createBtnActionPerformed
+
+    private void updateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateBtnActionPerformed
+        // TODO add your handling code here:
+        if (validateValueInForm()) {
+            CSVCModel temp = new CSVCModel();
+            temp.setLoai(LoaiTxb.getText());
+            temp.setSoLuong(Integer.parseInt(SoLuongTxb.getText()));
+            temp.setTrangThai(TrangThaiTxb.getText());
+            try {
+                if (this.controller.updateCSVC(temp)){
+                    JOptionPane.showMessageDialog(null, "Cập nhật thành công!!");
+                    close();
+                    parentController.refreshData();
+                }
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+                JOptionPane.showMessageDialog(rootPane, "Có lỗi xảy ra. Vui long kiểm tra lại!!", "Warning", JOptionPane.WARNING_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_updateBtnActionPerformed
     
     private boolean validateValueInForm(){
         if (LoaiTxb.getText().trim().isEmpty()
@@ -221,6 +246,18 @@ public class AddNewCSVCJFrame extends javax.swing.JFrame {
         }
         return true;
     }
+    
+    public void update(CSVCModel csvc){
+        createBtn.setVisible(false);
+        LoaiTxb.setText(csvc.getLoai());
+        SoLuongTxb.setText(Integer.toString(csvc.getSoLuong()));
+        TrangThaiTxb.setText(csvc.getTrangThai());
+    }
+    
+    public void create(){
+        updateBtn.setVisible(false);
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -234,5 +271,6 @@ public class AddNewCSVCJFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JButton updateBtn;
     // End of variables declaration//GEN-END:variables
 }

@@ -38,7 +38,6 @@ public class CSVCJPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         addNewBtn = new javax.swing.JButton();
-        CapNhatBtn = new javax.swing.JButton();
         tablePanel = new javax.swing.JPanel();
         jtfSearch = new javax.swing.JTextField();
 
@@ -47,14 +46,6 @@ public class CSVCJPanel extends javax.swing.JPanel {
         addNewBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addNewBtnActionPerformed(evt);
-            }
-        });
-
-        CapNhatBtn.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        CapNhatBtn.setText("Cập nhật");
-        CapNhatBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CapNhatBtnActionPerformed(evt);
             }
         });
 
@@ -69,8 +60,6 @@ public class CSVCJPanel extends javax.swing.JPanel {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        jtfSearch.setText("jTextField1");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -84,9 +73,7 @@ public class CSVCJPanel extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(tablePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(CapNhatBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 122, Short.MAX_VALUE)
-                            .addComponent(addNewBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addComponent(addNewBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -94,9 +81,7 @@ public class CSVCJPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(91, 91, 91)
                 .addComponent(addNewBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(CapNhatBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(292, Short.MAX_VALUE))
+                .addContainerGap(342, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addComponent(jtfSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -106,18 +91,17 @@ public class CSVCJPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void CapNhatBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CapNhatBtnActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_CapNhatBtnActionPerformed
-
     private void addNewBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addNewBtnActionPerformed
         // TODO add your handling code here:
-        
+        AddNewCSVCJFrame addNewCSVCJFrame = new AddNewCSVCJFrame(this.controller, this.parentJFrame);
+        addNewCSVCJFrame.create();
+        addNewCSVCJFrame.setLocationRelativeTo(null);
+        addNewCSVCJFrame.setResizable(false);
+        addNewCSVCJFrame.setVisible(true);
     }//GEN-LAST:event_addNewBtnActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton CapNhatBtn;
     private javax.swing.JButton addNewBtn;
     private javax.swing.JTextField jtfSearch;
     private javax.swing.JPanel tablePanel;

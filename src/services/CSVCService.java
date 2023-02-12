@@ -5,7 +5,7 @@
 package services;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
+import java.sql.Statement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,17 +21,17 @@ public class CSVCService {
         List<CSVCModel> list = new ArrayList<>();
         try {
             Connection connection = MysqlConnection.getMysqlConnection1();
-            String query = "SELECT * FROM CSVC";
-            PreparedStatement preparedStatement = (PreparedStatement)connection.prepareStatement(query);
-            ResultSet rs = preparedStatement.executeQuery();
+            String query = "SELECT * FROM csvc";
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
             while (rs.next()){
                 CSVCModel csvc = new CSVCModel();
                 csvc.setLoai(rs.getString("loai"));
                 csvc.setSoLuong(rs.getInt("soLuong"));
-                csvc.setLoai(rs.getString("trangThai"));
+                csvc.setTrangThai(rs.getString("trangThai"));
                 list.add(csvc);
             }
-            preparedStatement.close();
+            stmt.close();
             connection.close();
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -45,17 +45,17 @@ public class CSVCService {
             return this.getListCSVC();
         }
         try{
-            Connection connection = MysqlConnection.getMysqlConnection();
-            String query = "SELECT * FROM CSVC WHERE loai LIKE '%"
+            Connection connection = MysqlConnection.getMysqlConnection1();
+            String query = "SELECT * FROM csvc WHERE loai LIKE '%"
                             + keyword
                             + "%'";
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
-            ResultSet rs = preparedStatement.executeQuery();
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
             while (rs.next()){
                 CSVCModel csvc = new CSVCModel();
                 csvc.setLoai(rs.getString("loai"));
                 csvc.setSoLuong(rs.getInt("soLuong"));
-                csvc.setLoai(rs.getString("trangThai"));
+                csvc.setTrangThai(rs.getString("trangThai"));
                 list.add(csvc);
             }
         } catch (Exception mysqlException) {
